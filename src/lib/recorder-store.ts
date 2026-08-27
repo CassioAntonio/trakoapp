@@ -3,6 +3,7 @@ import { useSyncExternalStore } from "react";
 import { activities as seedActivities, currentRider } from "@/data/mock";
 import { buildTrack } from "@/lib/geo";
 import { computeStats, estimateDifficulty } from "@/lib/stats";
+import { loadJson, saveJson } from "@/lib/persist";
 import { createGpsProvider, type GpsProvider } from "@/services/gps";
 import type { Activity, GeoPoint, Modality } from "@/types";
 
@@ -35,6 +36,9 @@ let state: RecorderState = {
   saved: [],
   lastSavedId: null,
 };
+
+const SAVED_KEY = "trako.activities.v1";
+let hydrated = false;
 
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
