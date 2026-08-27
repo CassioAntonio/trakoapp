@@ -1,9 +1,12 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Bell, Compass, Home, ListOrdered, Radio, User } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
-import { useRecorder } from "@/lib/recorder-store";
+import { hydrateSession, useAuth } from "@/lib/auth-store";
+import { hydrateSocial, useSocial } from "@/lib/social-store";
+import { notifications as seedNotifications } from "@/data/mock";
+import { hydrateRecorder, useRecorder } from "@/lib/recorder-store";
 
 interface AppShellProps {
   title?: string;
