@@ -65,7 +65,9 @@ export function AppShell({ title, subtitle, action, children, bleed, hideHeader 
                 className="relative grid size-10 place-items-center rounded-full bg-surface text-foreground transition-colors hover:bg-elevated"
               >
                 <Bell className="size-[18px]" />
-                <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary" />
+                {unread && (
+                  <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary" />
+                )}
               </Link>
             </div>
           </div>
