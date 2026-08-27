@@ -1,9 +1,12 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Bell, Compass, Home, ListOrdered, Radio, User } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
-import { useRecorder } from "@/lib/recorder-store";
+import { hydrateSession, useAuth } from "@/lib/auth-store";
+import { hydrateSocial, useSocial } from "@/lib/social-store";
+import { notifications as seedNotifications } from "@/data/mock";
+import { hydrateRecorder, useRecorder } from "@/lib/recorder-store";
 
 interface AppShellProps {
   title?: string;
@@ -25,6 +28,21 @@ const tabs = [
 export function AppShell({ title, subtitle, action, children, bleed, hideHeader }: AppShellProps) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { status } = useRecorder();
+  const { session, hydrated } = useAuth();
+  const { readNotifications } = useSocial();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    hydrateSession();
+    hydrateSocial();
+    hydrateRecorder();
+  }, []);
+
+  useEffect(() => {
+    if (hydrated && !session) navigate({ to: "/entrar", replace: true });
+  }, [hydrated, session, navigate]);
+
+  const unread = seedNotifications.some((n) => !n.read && !readNotifications[n.id]);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
@@ -47,7 +65,9 @@ export function AppShell({ title, subtitle, action, children, bleed, hideHeader 
                 className="relative grid size-10 place-items-center rounded-full bg-surface text-foreground transition-colors hover:bg-elevated"
               >
                 <Bell className="size-[18px]" />
-                <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary" />
+                {unread && (
+                  <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary" />
+                )}
               </Link>
             </div>
           </div>

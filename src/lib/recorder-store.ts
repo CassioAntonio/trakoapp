@@ -3,6 +3,7 @@ import { useSyncExternalStore } from "react";
 import { activities as seedActivities, currentRider } from "@/data/mock";
 import { buildTrack } from "@/lib/geo";
 import { computeStats, estimateDifficulty } from "@/lib/stats";
+import { loadJson, saveJson } from "@/lib/persist";
 import { createGpsProvider, type GpsProvider } from "@/services/gps";
 import type { Activity, GeoPoint, Modality } from "@/types";
 
@@ -35,6 +36,9 @@ let state: RecorderState = {
   saved: [],
   lastSavedId: null,
 };
+
+const SAVED_KEY = "trako.activities.v1";
+let hydrated = false;
 
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
@@ -131,17 +135,33 @@ export const recorder = {
     provider?.stop();
     provider = null;
     stopClock();
+    const saved = [activity, ...state.saved];
+    saveJson(SAVED_KEY, saved);
     set({
       status: "idle",
       points: [],
       elapsedSec: 0,
       pauses: 0,
-      saved: [activity, ...state.saved],
+      saved,
       lastSavedId: id,
     });
     return id;
   },
+  remove(id: string) {
+    const saved = state.saved.filter((a) => a.id !== id);
+    saveJson(SAVED_KEY, saved);
+    set({ saved });
+  },
 };
+
+/** Recupera atividades salvas no dispositivo (client-only). */
+export function hydrateRecorder() {
+  if (hydrated) return;
+  hydrated = true;
+  const saved = loadJson<Activity[]>(SAVED_KEY, []);
+  if (saved.length) set({ saved });
+}
+
 
 const subscribe = (l: () => void) => {
   listeners.add(l);
