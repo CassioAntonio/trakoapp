@@ -28,6 +28,21 @@ const tabs = [
 export function AppShell({ title, subtitle, action, children, bleed, hideHeader }: AppShellProps) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { status } = useRecorder();
+  const { session, hydrated } = useAuth();
+  const { readNotifications } = useSocial();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    hydrateSession();
+    hydrateSocial();
+    hydrateRecorder();
+  }, []);
+
+  useEffect(() => {
+    if (hydrated && !session) navigate({ to: "/entrar", replace: true });
+  }, [hydrated, session, navigate]);
+
+  const unread = seedNotifications.some((n) => !n.read && !readNotifications[n.id]);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
