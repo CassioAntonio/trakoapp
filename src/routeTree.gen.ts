@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as ExplorarRouteImport } from './routes/explorar'
 import { Route as GravarRouteImport } from './routes/gravar'
+import { Route as NotificacoesRouteImport } from './routes/notificacoes'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as AtividadesIndexRouteImport } from './routes/atividades.index'
 import { Route as AtividadesActivityIdRouteImport } from './routes/atividades.$activityId'
@@ -36,6 +37,11 @@ const ExplorarRoute = ExplorarRouteImport.update({
 const GravarRoute = GravarRouteImport.update({
   id: '/gravar',
   path: '/gravar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificacoesRoute = NotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PerfilRoute = PerfilRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
   '/perfil': typeof PerfilRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/trilhas/$trailId': typeof TrilhasTrailIdRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
   '/perfil': typeof PerfilRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/trilhas/$trailId': typeof TrilhasTrailIdRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
   '/perfil': typeof PerfilRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/trilhas/$trailId': typeof TrilhasTrailIdRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/entrar'
     | '/explorar'
     | '/gravar'
+    | '/notificacoes'
     | '/perfil'
     | '/atividades/$activityId'
     | '/trilhas/$trailId'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/entrar'
     | '/explorar'
     | '/gravar'
+    | '/notificacoes'
     | '/perfil'
     | '/atividades/$activityId'
     | '/trilhas/$trailId'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/entrar'
     | '/explorar'
     | '/gravar'
+    | '/notificacoes'
     | '/perfil'
     | '/atividades/$activityId'
     | '/trilhas/$trailId'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   EntrarRoute: typeof EntrarRoute
   ExplorarRoute: typeof ExplorarRoute
   GravarRoute: typeof GravarRoute
+  NotificacoesRoute: typeof NotificacoesRoute
   PerfilRoute: typeof PerfilRoute
   AtividadesActivityIdRoute: typeof AtividadesActivityIdRoute
   TrilhasTrailIdRoute: typeof TrilhasTrailIdRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/gravar'
       fullPath: '/gravar'
       preLoaderRoute: typeof GravarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notificacoes': {
+      id: '/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/notificacoes'
+      preLoaderRoute: typeof NotificacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/perfil': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   EntrarRoute: EntrarRoute,
   ExplorarRoute: ExplorarRoute,
   GravarRoute: GravarRoute,
+  NotificacoesRoute: NotificacoesRoute,
   PerfilRoute: PerfilRoute,
   AtividadesActivityIdRoute: AtividadesActivityIdRoute,
   TrilhasTrailIdRoute: TrilhasTrailIdRoute,
