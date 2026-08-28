@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DesafiosRouteImport } from './routes/desafios'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as ExplorarRouteImport } from './routes/explorar'
+import { Route as GravarRouteImport } from './routes/gravar'
+import { Route as NotificacoesRouteImport } from './routes/notificacoes'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as AtividadesIndexRouteImport } from './routes/atividades.index'
+import { Route as AtividadesActivityIdRouteImport } from './routes/atividades.$activityId'
+import { Route as TrilhasTrailIdRouteImport } from './routes/trilhas.$trailId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DesafiosRoute = DesafiosRouteImport.update({
+  id: '/desafios',
+  path: '/desafios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorarRoute = ExplorarRouteImport.update({
+  id: '/explorar',
+  path: '/explorar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GravarRoute = GravarRouteImport.update({
+  id: '/gravar',
+  path: '/gravar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificacoesRoute = NotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AtividadesIndexRoute = AtividadesIndexRouteImport.update({
+  id: '/atividades/',
+  path: '/atividades/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AtividadesActivityIdRoute = AtividadesActivityIdRouteImport.update({
+  id: '/atividades/$activityId',
+  path: '/atividades/$activityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrilhasTrailIdRoute = TrilhasTrailIdRouteImport.update({
+  id: '/trilhas/$trailId',
+  path: '/trilhas/$trailId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/desafios': typeof DesafiosRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
+  '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/desafios': typeof DesafiosRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
+  '/atividades': typeof AtividadesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/desafios': typeof DesafiosRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
+  '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/desafios'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/notificacoes'
+    | '/perfil'
+    | '/atividades/$activityId'
+    | '/trilhas/$trailId'
+    | '/atividades/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/desafios'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/notificacoes'
+    | '/perfil'
+    | '/atividades/$activityId'
+    | '/trilhas/$trailId'
+    | '/atividades'
+  id:
+    | '__root__'
+    | '/'
+    | '/desafios'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/notificacoes'
+    | '/perfil'
+    | '/atividades/$activityId'
+    | '/trilhas/$trailId'
+    | '/atividades/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DesafiosRoute: typeof DesafiosRoute
+  EntrarRoute: typeof EntrarRoute
+  ExplorarRoute: typeof ExplorarRoute
+  GravarRoute: typeof GravarRoute
+  NotificacoesRoute: typeof NotificacoesRoute
+  PerfilRoute: typeof PerfilRoute
+  AtividadesActivityIdRoute: typeof AtividadesActivityIdRoute
+  TrilhasTrailIdRoute: typeof TrilhasTrailIdRoute
+  AtividadesIndexRoute: typeof AtividadesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/desafios': {
+      id: '/desafios'
+      path: '/desafios'
+      fullPath: '/desafios'
+      preLoaderRoute: typeof DesafiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explorar': {
+      id: '/explorar'
+      path: '/explorar'
+      fullPath: '/explorar'
+      preLoaderRoute: typeof ExplorarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gravar': {
+      id: '/gravar'
+      path: '/gravar'
+      fullPath: '/gravar'
+      preLoaderRoute: typeof GravarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notificacoes': {
+      id: '/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/notificacoes'
+      preLoaderRoute: typeof NotificacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/atividades/': {
+      id: '/atividades/'
+      path: '/atividades'
+      fullPath: '/atividades/'
+      preLoaderRoute: typeof AtividadesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/atividades/$activityId': {
+      id: '/atividades/$activityId'
+      path: '/atividades/$activityId'
+      fullPath: '/atividades/$activityId'
+      preLoaderRoute: typeof AtividadesActivityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trilhas/$trailId': {
+      id: '/trilhas/$trailId'
+      path: '/trilhas/$trailId'
+      fullPath: '/trilhas/$trailId'
+      preLoaderRoute: typeof TrilhasTrailIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DesafiosRoute: DesafiosRoute,
+  EntrarRoute: EntrarRoute,
+  ExplorarRoute: ExplorarRoute,
+  GravarRoute: GravarRoute,
+  NotificacoesRoute: NotificacoesRoute,
+  PerfilRoute: PerfilRoute,
+  AtividadesActivityIdRoute: AtividadesActivityIdRoute,
+  TrilhasTrailIdRoute: TrilhasTrailIdRoute,
+  AtividadesIndexRoute: AtividadesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
