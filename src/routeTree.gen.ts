@@ -15,6 +15,7 @@ import { Route as ExplorarRouteImport } from './routes/explorar'
 import { Route as GravarRouteImport } from './routes/gravar'
 import { Route as AtividadesIndexRouteImport } from './routes/atividades.index'
 import { Route as AtividadesActivityIdRouteImport } from './routes/atividades.$activityId'
+import { Route as TrilhasTrailIdRouteImport } from './routes/trilhas.$trailId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const AtividadesActivityIdRoute = AtividadesActivityIdRouteImport.update({
   path: '/atividades/$activityId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrilhasTrailIdRoute = TrilhasTrailIdRouteImport.update({
+  id: '/trilhas/$trailId',
+  path: '/trilhas/$trailId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
   '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
   '/atividades': typeof AtividadesIndexRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
   '/atividades/$activityId': typeof AtividadesActivityIdRoute
+  '/trilhas/$trailId': typeof TrilhasTrailIdRoute
   '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRouteTypes {
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/gravar'
     | '/atividades/$activityId'
+    | '/trilhas/$trailId'
     | '/atividades/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/gravar'
     | '/atividades/$activityId'
+    | '/trilhas/$trailId'
     | '/atividades'
   id:
     | '__root__'
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/explorar'
     | '/gravar'
     | '/atividades/$activityId'
+    | '/trilhas/$trailId'
     | '/atividades/'
   fileRoutesById: FileRoutesById
 }
@@ -105,6 +117,7 @@ export interface RootRouteChildren {
   ExplorarRoute: typeof ExplorarRoute
   GravarRoute: typeof GravarRoute
   AtividadesActivityIdRoute: typeof AtividadesActivityIdRoute
+  TrilhasTrailIdRoute: typeof TrilhasTrailIdRoute
   AtividadesIndexRoute: typeof AtividadesIndexRoute
 }
 
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AtividadesActivityIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trilhas/$trailId': {
+      id: '/trilhas/$trailId'
+      path: '/trilhas/$trailId'
+      fullPath: '/trilhas/$trailId'
+      preLoaderRoute: typeof TrilhasTrailIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -161,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExplorarRoute: ExplorarRoute,
   GravarRoute: GravarRoute,
   AtividadesActivityIdRoute: AtividadesActivityIdRoute,
+  TrilhasTrailIdRoute: TrilhasTrailIdRoute,
   AtividadesIndexRoute: AtividadesIndexRoute,
 }
 export const routeTree = rootRouteImport
