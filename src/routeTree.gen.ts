@@ -14,6 +14,7 @@ import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as ExplorarRouteImport } from './routes/explorar'
 import { Route as GravarRouteImport } from './routes/gravar'
 import { Route as AtividadesIndexRouteImport } from './routes/atividades.index'
+import { Route as AtividadesActivityIdRouteImport } from './routes/atividades.$activityId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,12 +41,18 @@ const AtividadesIndexRoute = AtividadesIndexRouteImport.update({
   path: '/atividades/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtividadesActivityIdRoute = AtividadesActivityIdRouteImport.update({
+  id: '/atividades/$activityId',
+  path: '/atividades/$activityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/atividades': typeof AtividadesIndexRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,34 @@ export interface FileRoutesById {
   '/entrar': typeof EntrarRoute
   '/explorar': typeof ExplorarRoute
   '/gravar': typeof GravarRoute
+  '/atividades/$activityId': typeof AtividadesActivityIdRoute
   '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades/'
+  fullPaths:
+    | '/'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/atividades/$activityId'
+    | '/atividades/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades'
-  id: '__root__' | '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades/'
+  to:
+    | '/'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/atividades/$activityId'
+    | '/atividades'
+  id:
+    | '__root__'
+    | '/'
+    | '/entrar'
+    | '/explorar'
+    | '/gravar'
+    | '/atividades/$activityId'
+    | '/atividades/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +104,7 @@ export interface RootRouteChildren {
   EntrarRoute: typeof EntrarRoute
   ExplorarRoute: typeof ExplorarRoute
   GravarRoute: typeof GravarRoute
+  AtividadesActivityIdRoute: typeof AtividadesActivityIdRoute
   AtividadesIndexRoute: typeof AtividadesIndexRoute
 }
 
@@ -116,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AtividadesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atividades/$activityId': {
+      id: '/atividades/$activityId'
+      path: '/atividades/$activityId'
+      fullPath: '/atividades/$activityId'
+      preLoaderRoute: typeof AtividadesActivityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -124,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   EntrarRoute: EntrarRoute,
   ExplorarRoute: ExplorarRoute,
   GravarRoute: GravarRoute,
+  AtividadesActivityIdRoute: AtividadesActivityIdRoute,
   AtividadesIndexRoute: AtividadesIndexRoute,
 }
 export const routeTree = rootRouteImport
