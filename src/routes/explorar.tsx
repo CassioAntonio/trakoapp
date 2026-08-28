@@ -26,7 +26,7 @@ export const Route = createFileRoute("/explorar")({
       },
     ],
   }),
-  component: ExplorePage;
+  component: ExplorePage,
 });
 
 const difficulties: Difficulty[] = ["easy", "moderate", "hard", "extreme"];
