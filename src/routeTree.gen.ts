@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as ExplorarRouteImport } from './routes/explorar'
+import { Route as GravarRouteImport } from './routes/gravar'
+import { Route as AtividadesIndexRouteImport } from './routes/atividades.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorarRoute = ExplorarRouteImport.update({
+  id: '/explorar',
+  path: '/explorar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GravarRoute = GravarRouteImport.update({
+  id: '/gravar',
+  path: '/gravar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AtividadesIndexRoute = AtividadesIndexRouteImport.update({
+  id: '/atividades/',
+  path: '/atividades/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/atividades': typeof AtividadesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/explorar': typeof ExplorarRoute
+  '/gravar': typeof GravarRoute
+  '/atividades/': typeof AtividadesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades'
+  id: '__root__' | '/' | '/entrar' | '/explorar' | '/gravar' | '/atividades/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EntrarRoute: typeof EntrarRoute
+  ExplorarRoute: typeof ExplorarRoute
+  GravarRoute: typeof GravarRoute
+  AtividadesIndexRoute: typeof AtividadesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explorar': {
+      id: '/explorar'
+      path: '/explorar'
+      fullPath: '/explorar'
+      preLoaderRoute: typeof ExplorarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gravar': {
+      id: '/gravar'
+      path: '/gravar'
+      fullPath: '/gravar'
+      preLoaderRoute: typeof GravarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/atividades/': {
+      id: '/atividades/'
+      path: '/atividades'
+      fullPath: '/atividades/'
+      preLoaderRoute: typeof AtividadesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EntrarRoute: EntrarRoute,
+  ExplorarRoute: ExplorarRoute,
+  GravarRoute: GravarRoute,
+  AtividadesIndexRoute: AtividadesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
